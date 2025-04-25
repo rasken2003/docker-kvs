@@ -20,7 +20,7 @@ pipeline {
         sh "docker -H ssh://${BUILD_HOST} volume prune -f"
         sh "DOCKER_HOST=ssh://${BUILD_HOST} docker compose -f docker-compose.build.yml build"
         sh "DOCKER_HOST=ssh://${BUILD_HOST} docker compose -f docker-compose.build.yml up -d"
-        sh "./wait-for-it.sh ${BUILD_HOST%:*}:2226 --timeout=30 -- echo 'SSHホスト到達OK'"
+        sh "./wait-for-it.sh ${BUILD_HOST%} --timeout=30 -- echo 'SSHホスト到達OK'"
         sh "docker -H ssh://${BUILD_HOST} exec dockerkvs_apptest /usr/local/bin/wait-for-it.sh app:80 --timeout=30 -- echo 'app is ready!'"
         sh "DOCKER_HOST=ssh://${BUILD_HOST} docker compose -f docker-compose.build.yml ps"
       }
