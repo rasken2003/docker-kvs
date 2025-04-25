@@ -44,6 +44,7 @@ pipeline {
         sh "cat docker-compose.prod.yml"
         sh "echo 'DOCKERHUB_USER=${DOCKERHUB_USER}' > .env"
         sh "echo 'BUILD_TIMESTAMP=${BUILD_TIMESTAMP}' >> .env"
+        sh "echo 'WEB_PORT=8082' >> .env"
         sh "cat .env"
         sh "DOCKER_HOST=ssh://${PROD_HOST} docker compose -f docker-compose.prod.yml up -d"
         sh "DOCKER_HOST=ssh://${PROD_HOST} docker compose -f docker-compose.prod.yml ps"

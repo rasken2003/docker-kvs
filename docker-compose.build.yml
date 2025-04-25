@@ -53,7 +53,7 @@ services:
     depends_on:
       - app
     ports:
-      - 80:80
+      - 8081:80
     environment:
       DEBUG: "false"
       APP_SERVER: http://app:80
